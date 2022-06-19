@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
                 }
             })
         } else { // Get All
-            piezas = await Pieza.find()
+            piezas = await Pieza.find().populate('perfil')
         }
 
         res.status(200).json(piezas)

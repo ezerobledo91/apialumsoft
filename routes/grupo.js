@@ -97,4 +97,26 @@ router.get('/find/:id', async (req, res) => {
 // })
 
 
+router.get('/', async (req, res) => {
+    const qCategory = req.query.categoria
+    try {
+        let grupos
+        if (qCategory) { //By Category
+            grupos = await Grupo.find({
+                categoria: {
+                    $in: [qCategory]
+                }
+            })
+        } else { // Get All
+            grupos = await Grupo.find().populate({ path: 'piezas', select: 'nombre' })
+
+        }
+
+        res.status(200).json(grupos)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
+
 module.exports = router

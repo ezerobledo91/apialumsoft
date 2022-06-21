@@ -108,7 +108,7 @@ router.get('/', async (req, res) => {
                 }
             })
         } else { // Get All
-            grupos = await Grupo.find().populate({ path: 'piezas', select: 'nombre' })
+            grupos = await Grupo.find().populate('piezas')
 
         }
 

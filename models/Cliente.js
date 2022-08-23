@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const ClienteSchema = new mongoose.Schema({
     nombre: { type: String, required: true },
     descripcion: { type: String, required: true },
-    telefono: { type: Array },
-    email: { type: Array },
+    telefono: { type: Number },
+    email: { type: String },
     direccion: { type: String }
 })
 

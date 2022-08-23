@@ -1,36 +1,37 @@
 const router = require('express').Router()
-const Proveedor = require('../models/Proveedor')
+const Vidrio = require('../models/Vidrio')
 
-// Create Proveedor
+// Create Vidrio
 router.post('/', async (req, res) => {
-    const newProveedor = new Proveedor(req.body)
+    const newVidrio = new Vidrio(req.body)
     try {
-        const savedProveedor = await newProveedor.save()
-        res.status(200).json(savedProveedor)
+        const savedVidrio = await newVidrio.save()
+        res.status(200).json(savedVidrio)
     } catch (error) {
         res.status(500).json(error)
     }
 })
 
-// Update Proveedor
+// Update Vidrio
 router.put("/:id", async (req, res) => {
     try {
-        const updateProveedor = await Proveedor.findByIdAndUpdate(req.params.id, {
+        const updateVidrio = await Vidrio.findByIdAndUpdate(req.params.id, {
             $set: req.body
 
         }, { new: true })
-        res.status(200).json(updateProveedor)
+
+        res.status(200).json(updateVidrio)
     } catch (err) {
         res.status(500).json(err)
     }
 })
 
-// Delete Proveedor
+// Delete Vidrio
 
 router.delete("/:id", async (req, res) => {
     try {
-        await Proveedor.findByIdAndDelete(req.params.id)
-        res.status(200).json({id:req.params.id, msg:'Proveedor Borrado'})
+        await Vidrio.findByIdAndDelete(req.params.id)
+        res.status(200).json("Vidrio Borrado...")
     } catch (err) {
         res.status(500).json(err)
     }
@@ -38,32 +39,32 @@ router.delete("/:id", async (req, res) => {
 
 
 
-// Get Proveedor
+// Get Vidrio
 router.get('/find/:id', async (req, res) => {
     try {
-        const proveedor = await Proveedor.findById(req.params.id)
-        res.status(200).json(proveedor)
+        const Vidrio = await Vidrio.findById(req.params.id)
+        res.status(200).json(Vidrio)
     } catch (error) {
         res.status(500).json(error)
     }
 })
 
-// Get  All Proveedor
+// Get  All Vidrio
 router.get('/', async (req, res) => {
     const qCategory = req.query.categoria
     try {
-        let proveedores
+        let Vidrios
         if (qCategory) { //By Category
-            proveedores = await Proveedor.find({
+            Vidrios = await Vidrio.find({
                 categoria: {
                     $in: [qCategory]
                 }
             })
         } else { // Get All
-            proveedores = await Proveedor.find()
+            Vidrios = await Vidrio.find()
         }
 
-        res.status(200).json(proveedores)
+        res.status(200).json(Vidrios)
     } catch (err) {
         res.status(500).json(err)
     }

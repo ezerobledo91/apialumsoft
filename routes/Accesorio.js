@@ -1,36 +1,37 @@
 const router = require('express').Router()
-const Proveedor = require('../models/Proveedor')
+const Accesorio = require('../models/Accesorio')
 
-// Create Proveedor
+// Create Accesorio
 router.post('/', async (req, res) => {
-    const newProveedor = new Proveedor(req.body)
+    const newAccesorio = new Accesorio(req.body)
     try {
-        const savedProveedor = await newProveedor.save()
-        res.status(200).json(savedProveedor)
+        const savedAccesorio = await newAccesorio.save()
+        res.status(200).json(savedAccesorio)
     } catch (error) {
         res.status(500).json(error)
     }
 })
 
-// Update Proveedor
+// Update Accesorio
 router.put("/:id", async (req, res) => {
     try {
-        const updateProveedor = await Proveedor.findByIdAndUpdate(req.params.id, {
+        const updateAccesorio = await Accesorio.findByIdAndUpdate(req.params.id, {
             $set: req.body
 
         }, { new: true })
-        res.status(200).json(updateProveedor)
+
+        res.status(200).json(updateAccesorio)
     } catch (err) {
         res.status(500).json(err)
     }
 })
 
-// Delete Proveedor
+// Delete Accesorio
 
 router.delete("/:id", async (req, res) => {
     try {
-        await Proveedor.findByIdAndDelete(req.params.id)
-        res.status(200).json({id:req.params.id, msg:'Proveedor Borrado'})
+        await Accesorio.findByIdAndDelete(req.params.id)
+        res.status(200).json("Accesorio Borrado...")
     } catch (err) {
         res.status(500).json(err)
     }
@@ -38,32 +39,32 @@ router.delete("/:id", async (req, res) => {
 
 
 
-// Get Proveedor
+// Get Accesorio
 router.get('/find/:id', async (req, res) => {
     try {
-        const proveedor = await Proveedor.findById(req.params.id)
-        res.status(200).json(proveedor)
+        const Accesorio = await Accesorio.findById(req.params.id)
+        res.status(200).json(Accesorio)
     } catch (error) {
         res.status(500).json(error)
     }
 })
 
-// Get  All Proveedor
+// Get  All Accesorio
 router.get('/', async (req, res) => {
     const qCategory = req.query.categoria
     try {
-        let proveedores
+        let Accesorios
         if (qCategory) { //By Category
-            proveedores = await Proveedor.find({
+            Accesoris = await Accesorio.find({
                 categoria: {
                     $in: [qCategory]
                 }
             })
         } else { // Get All
-            proveedores = await Proveedor.find()
+            Accesorios = await Accesorio.find()
         }
 
-        res.status(200).json(proveedores)
+        res.status(200).json(Accesorios)
     } catch (err) {
         res.status(500).json(err)
     }

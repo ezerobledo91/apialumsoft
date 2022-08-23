@@ -1,20 +1,20 @@
 const router = require('express').Router()
-const Grupo = require('../models/Grupo')
+const Abertura = require('../models/Abertura')
 
-// Create GRUPO con propiedades calculadas antes de guardar
+// Create Abertura con propiedades calculadas antes de guardar
 router.post('/', async (req, res) => {
-    const newGrupo = new Grupo(req.body)
+    const newAbertura = new Abertura(req.body)
     try {
-        const savedGrupo = await newGrupo.save()
-        res.status(200).json(savedGrupo)
+        const savedAbertura = await newAbertura.save()
+        res.status(200).json(savedAbertura)
     } catch (error) {
         res.status(500).json(error)
     }
 })
 
 
-// async function calculatePeso(newGrupo) {
-//     const { dimension, piezas } = newGrupo
+// async function calculatePeso(newAbertura) {
+//     const { dimension, piezas } = newAbertura
 //     let peso_total = 0
 
 //     for (const pieza_id of piezas) {
@@ -30,26 +30,26 @@ router.post('/', async (req, res) => {
 // }
 
 
-// Update GRUPO
+// Update Abertura
 router.put("/:id", async (req, res) => {
     try {
-        const updateGrupo = await Grupo.findByIdAndUpdate(req.params.id, {
+        const updateAbertura = await Abertura.findByIdAndUpdate(req.params.id, {
             $set: req.body
 
         }, { new: true })
 
-        res.status(200).json(updateGrupo)
+        res.status(200).json(updateAbertura)
     } catch (err) {
         res.status(500).json(err)
     }
 })
 
-// // Delete Grupo
+// // Delete Abertura
 
 router.delete("/:id", async (req, res) => {
     try {
-        await Grupo.findByIdAndDelete(req.params.id)
-        res.status(200).json("Grupo Borrado...")
+        await Abertura.findByIdAndDelete(req.params.id)
+        res.status(200).json("Abertura Borrado...")
     } catch (err) {
         res.status(500).json(err)
     }
@@ -57,11 +57,11 @@ router.delete("/:id", async (req, res) => {
 
 
 
-// Get Grupos
+// Get Aberturas
 router.get('/find/:id', async (req, res) => {
     try {
-        const grupo = await Grupo.findById(req.params.id)
-        res.status(200).json(grupo)
+        const abertura = await Abertura.findById(req.params.id)
+        res.status(200).json(abertura)
     } catch (error) {
         res.status(500).json(error)
     }
@@ -100,19 +100,18 @@ router.get('/find/:id', async (req, res) => {
 router.get('/', async (req, res) => {
     const qCategory = req.query.categoria
     try {
-        let grupos
+        let aberturas
         if (qCategory) { //By Category
-            grupos = await Grupo.find({
+            aberturas = await Abertura.find({
                 categoria: {
                     $in: [qCategory]
                 }
             })
         } else { // Get All
-            grupos = await Grupo.find().populate('piezas')
-
+            aberturas = await Abertura.find()
         }
 
-        res.status(200).json(grupos)
+        res.status(200).json(aberturas)
     } catch (err) {
         res.status(500).json(err)
     }

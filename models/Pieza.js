@@ -5,7 +5,7 @@ const PiezaSchema = new mongoose.Schema(
         perfil: { type: mongoose.Schema.Types.ObjectId, ref: 'Perfil' },
         descripcion: { type: String },
         categoria: { type: Array, required: true },
-        modelo: { type: Array, required: true },
+        linea: { type: Array, required: true },
         variable: {
             type: String, required: true,
         },

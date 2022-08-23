@@ -11,11 +11,15 @@ app.use(cors())
 mongoose.connect(process.env.MONGO_URL).then(() => console.log('DBConection Success')).catch(err => console.log(err))
 
 // Import Routes
-const proveedorRoute = require('./routes/proveedor')
-const perfilRoute = require('./routes/perfil')
+const presupuestoRoute = require('./routes/presupuesto')
+const aberturaRoute = require('./routes/abertura')
 const piezaRoute = require('./routes/pieza')
-const grupoRoute = require('./routes/grupo')
+const perfilRoute = require('./routes/perfil')
+const proveedorRoute = require('./routes/proveedor')
 const clienteRoute = require('./routes/cliente')
+const vidrioRoute = require('./routes/vidrio')
+const accesorioRoute = require('./routes/accesorio')
+
 
 
 
@@ -29,8 +33,13 @@ app.use('/api/perfil', perfilRoute)
 //Piezas 
 app.use('/api/pieza', piezaRoute)
 // Grupos
-app.use('/api/grupo', grupoRoute)
-
+app.use('/api/abertura', aberturaRoute)
+// Presupuestos
+app.use('/api/presupuesto', presupuestoRoute)
+// Vidrios
+app.use('/api/vidrio', vidrioRoute)
+// Accesorios
+app.use('/api/accesorio', accesorioRoute)
 
 
 
